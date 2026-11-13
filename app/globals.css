@@ -314,3 +314,7 @@ fieldset.card legend{padding:0 6px}
 .admin .grid{align-items:start}
 .field>select,.field>input{align-self:start}
 .glance .tbc{white-space:normal}
+.logo-mark{display:block;flex:none;width:40px;height:auto}
+.logo-full{display:block;width:180px;height:auto}
+@media (max-width:420px){.brand .logo-mark{width:34px}}
+.iconbtn{white-space:nowrap}

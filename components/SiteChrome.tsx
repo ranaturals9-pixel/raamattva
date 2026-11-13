@@ -3,13 +3,9 @@ import { t, type Lang } from "@/lib/i18n-shared";
 import { CartButton, LangButton, MainNav } from "./HeaderControls";
 import type { SiteContent } from "@/lib/types";
 
-export const Mark = ({ size = 36 }: { size?: number }) => (
-  <svg width={size} height={(size * 40) / 36} viewBox="0 0 36 40" aria-hidden="true">
-    <path d="M3 39V18a15 15 0 0 1 30 0v21" fill="none" stroke="var(--gold)" strokeWidth="1.6" />
-    <path d="M18 12c3.6 4.6 3.6 8.4 0 11.4-3.6-3-3.6-6.8 0-11.4Z" fill="var(--saffron)" />
-    <path d="M9 30c4 0 6.5-1.4 9-4 2.5 2.6 5 4 9 4" fill="none" stroke="var(--earth)" strokeWidth="1.6" strokeLinecap="round" />
-    <path d="M12 33h12" stroke="var(--gold)" strokeWidth="1.6" strokeLinecap="round" />
-  </svg>
+export const Mark = ({ size = 40 }: { size?: number }) => (
+  // eslint-disable-next-line @next/next/no-img-element
+  <img src="/logo-mark.webp" alt="" width={size} height={Math.round(size * 0.983)} className="logo-mark" />
 );
 
 export function Header({ lang, signedIn }: { lang: Lang; signedIn: boolean }) {
@@ -57,13 +53,9 @@ export function Footer({ content }: { content: SiteContent }) {
       <div className="wrap">
         <div className="cols">
           <div className="about stack">
-            <div className="brand" style={{ margin: 0 }}>
-              <Mark />
-              <span>
-                <b>Raamattva Vidya Peeth</b>
-                <small>Founded by Swami Ananta Giri</small>
-              </span>
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo-full.webp" alt="Raamattva Vidya Peeth" width={180} height={167} loading="lazy" className="logo-full" />
+            <p className="small">Founded by Swami Ananta Giri</p>
             <p className="tagline">{content["home.tagline"]?.en ?? "Rooted in Wisdom. Growing in Awareness."}</p>
             {social.length > 0 && (
               <p className="small">
