@@ -22,6 +22,7 @@ export default async function About() {
   const [lang, content] = await Promise.all([getLang(), getSiteContent()]);
   const vision = pick(content["about.vision"]?.en, content["about.vision"]?.hi, lang);
   const bio = pick(content["founder.bio"]?.en, content["founder.bio"]?.hi, lang);
+  const titles = pick(content["founder.titles"]?.en, content["founder.titles"]?.hi, lang);
   return (
     <>
       <PageHead
@@ -77,6 +78,7 @@ export default async function About() {
           <div className="stack-lg">
             <p className="eyebrow">The founder</p>
             <h2>Swami Ananta Giri</h2>
+            {titles && <p className="tagline">{titles}</p>}
             {bio ? (
               <Prose text={bio} />
             ) : (

@@ -10,6 +10,7 @@ const LABELS: Record<string, string> = {
   "home.tagline": "Tagline",
   "home.intro": "Home: introduction",
   "about.vision": "About: vision statement",
+  "founder.titles": "Swamiji's titles (shown under her name)",
   "founder.bio": "Swamiji's approved biography",
   "contact.whatsapp": "WhatsApp number",
   "contact.email": "Email address",

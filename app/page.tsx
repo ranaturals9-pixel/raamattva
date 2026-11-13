@@ -115,6 +115,7 @@ export default async function Home() {
           <div className="stack-lg">
             <p className="eyebrow">The founder</p>
             <h2>Swami Ananta Giri</h2>
+            {c("founder.titles") && <p className="tagline">{c("founder.titles")}</p>}
             {bio ? (
               <p className="lede">{bio.split(/\n{2,}/)[0]}</p>
             ) : (
