@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { normalisePhone } from "@/lib/format";
@@ -13,23 +14,36 @@ function parseIdentifier(raw: string): { email: string } | { phone: string } | n
   return phone ? { phone } : null;
 }
 
+const safePath = (p: string) => (p.startsWith("/") && !p.startsWith("//") ? p : "/account");
+
 const phoneLogin = () => process.env.NEXT_PUBLIC_PHONE_LOGIN === "1";
 
-export async function sendCode(identifier: string): Promise<{ ok: boolean; error?: string; sentTo?: string }> {
+async function siteOrigin() {
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  const h = await headers();
+  return `${h.get("x-forwarded-proto") ?? "https"}://${h.get("host")}`;
+}
+
+export async function sendCode(identifier: string, next = "/account"): Promise<{ ok: boolean; error?: string; sentTo?: string }> {
   const id = parseIdentifier(identifier);
   if (!id) return { ok: false, error: "Please enter a valid email or mobile number." };
   if ("phone" in id && !phoneLogin()) return { ok: false, error: "Sign-in by phone is not available yet. Please use your email." };
   const supabase = await createClient();
   const { error } =
     "email" in id
-      ? await supabase.auth.signInWithOtp({ email: id.email, options: { shouldCreateUser: true } })
+      ? await supabase.auth.signInWithOtp({
+          email: id.email,
+          // The standard Supabase email contains a sign-in link; it brings the person back here.
+          options: { shouldCreateUser: true, emailRedirectTo: `${await siteOrigin()}/auth/callback?next=${encodeURIComponent(safePath(next))}` },
+        })
       : await supabase.auth.signInWithOtp({
           phone: id.phone,
           options: { shouldCreateUser: true, channel: process.env.OTP_CHANNEL === "whatsapp" ? "whatsapp" : "sms" },
         });
   if (error) {
     console.error("otp send failed", error.message);
-    return { ok: false, error: "We could not send a code just now. Please try again in a minute." };
+    const limited = /rate|limit|seconds/i.test(error.message);
+    return { ok: false, error: limited ? "Too many sign-in emails were sent. Please wait a little and try again." : "We could not send the email just now. Please try again in a minute." };
   }
   return { ok: true, sentTo: "email" in id ? id.email : id.phone };
 }

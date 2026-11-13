@@ -6,8 +6,8 @@ import { LoginForm } from "./LoginForm";
 
 export const metadata: Metadata = { title: "Sign in", robots: { index: false } };
 
-export default async function Login({ searchParams }: { searchParams: Promise<{ next?: string }> }) {
-  const { next } = await searchParams;
+export default async function Login({ searchParams }: { searchParams: Promise<{ next?: string; error?: string }> }) {
+  const { next, error } = await searchParams;
   const safeNext = next && next.startsWith("/") && !next.startsWith("//") ? next : "/account";
   if (await getUser()) redirect(safeNext);
   return (
@@ -19,7 +19,8 @@ export default async function Login({ searchParams }: { searchParams: Promise<{ 
         crumbs={[{ label: "Sign in" }]}
       />
       <section className="band">
-        <div className="wrap narrow">
+        <div className="wrap narrow stack">
+          {error === "link" && <p className="notice">That sign-in link has expired or was already used. Please ask for a new one below, and open it on this same device.</p>}
           <LoginForm next={safeNext} phoneEnabled={process.env.NEXT_PUBLIC_PHONE_LOGIN === "1"} />
         </div>
       </section>
