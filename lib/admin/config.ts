@@ -44,7 +44,7 @@ const FORMAT: Option[] = [
 ];
 const TOPIC: Option[] = [
   { value: "hanuman", label: "Hanuman Saadhna" },
-  { value: "ram", label: "Ram Saadhna" },
+  { value: "ram", label: "Raam Saadhna" },
   { value: "meditation", label: "Meditation" },
   { value: "living", label: "Spiritual Living" },
 ];
@@ -210,6 +210,7 @@ export const ENTITIES: Record<string, EntityConfig> = {
             required: true,
             options: [
               { value: "rudraksha", label: "Rudraksha" },
+              { value: "mala", label: "Malas & Bracelets" },
               { value: "course_kit", label: "Course Kit" },
             ],
           },

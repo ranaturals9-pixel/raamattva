@@ -7,7 +7,7 @@ import { Filters } from "@/components/Filters";
 import { PageHead } from "@/components/ui";
 
 export const revalidate = 60;
-export const metadata: Metadata = { title: "Spiritual Shop", description: "Rudraksha and course kits from Raamattva Vidya Peeth, priced in INR." };
+export const metadata: Metadata = { title: "Spiritual Shop", description: "Rudraksha, malas and course kits from Raamattva Vidya Peeth, priced in INR." };
 
 export default async function Shop({ searchParams }: { searchParams: Promise<{ c?: string }> }) {
   const [{ c }, lang, products] = await Promise.all([searchParams, getLang(), getProducts()]);
@@ -16,7 +16,7 @@ export default async function Shop({ searchParams }: { searchParams: Promise<{ c
       <PageHead
         eyebrow="सामग्री · Spiritual Shop"
         title="A thoughtfully curated spiritual shop"
-        lede="Rudraksha and course kits for your practice. Every listing shows exactly what you receive, its price in rupees and whether it is in stock."
+        lede="Rudraksha, malas and course kits for your practice. Every listing shows exactly what you receive, its price in rupees and whether it is in stock."
         crumbs={[{ label: "Shop" }]}
       />
       <section className="band">
@@ -24,11 +24,14 @@ export default async function Shop({ searchParams }: { searchParams: Promise<{ c
           <p className="notice" style={{ marginBottom: 22 }}>
             Buying a course kit does not enrol you in a course. Please register for the course separately on its <Link href="/courses">course page</Link>.
           </p>
+          <p className="small" style={{ marginBottom: 22 }}>
+            Not sure which rudraksha suits you? Book a <Link href="/sessions#rudraksha-consultation">rudraksha consultation as per your horoscope</Link>.
+          </p>
           <Filters
             emptyText="No products in this category yet."
-            initial={{ cat: c === "rudraksha" || c === "course_kit" ? c : "all" }}
+            initial={{ cat: c === "rudraksha" || c === "mala" || c === "course_kit" ? c : "all" }}
             className="grid g3"
-            groups={[{ key: "cat", label: "Category", options: [{ value: "rudraksha", label: "Rudraksha" }, { value: "course_kit", label: "Course Kits" }] }]}
+            groups={[{ key: "cat", label: "Category", options: [{ value: "rudraksha", label: "Rudraksha" }, { value: "mala", label: "Malas & Bracelets" }, { value: "course_kit", label: "Course Kits" }] }]}
           >
             {products.map((p) => (
               <ProductCard key={p.id} p={p} lang={lang} />

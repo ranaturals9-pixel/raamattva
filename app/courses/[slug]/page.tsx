@@ -162,6 +162,11 @@ export default async function CoursePage({ params }: Props) {
                 ["Study material", yesNo(c.materials_included, "Included", "Not included")],
               ]}
             />
+            {state === "soon" ? (
+              <Link className="btn primary" href={`/contact?topic=courses&course=${encodeURIComponent(c.title_en)}`}>
+                Enquire about {c.title_en}
+              </Link>
+            ) : (
             <RegisterButton
               targetType="course"
               targetId={c.id}
@@ -176,7 +181,8 @@ export default async function CoursePage({ params }: Props) {
               labels={{ free: "Register for this course", paid: "Register and pay", soon: t("opens_soon", lang), full: t("full", lang) }}
               className="btn primary"
             />
-            <p className="small muted">Registration is separate from buying a course kit.</p>
+            )}
+            <p className="small muted">{state === "soon" ? "Dates and fees for the next batch will be announced. Send an enquiry and the team will contact you." : "Registration is separate from buying a course kit."}</p>
           </aside>
         </div>
       </section>

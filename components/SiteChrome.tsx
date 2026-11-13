@@ -89,6 +89,7 @@ export function Footer({ content }: { content: SiteContent }) {
           <div>
             <h4>Shop</h4>
             <Link href="/shop?c=rudraksha">Rudraksha</Link>
+            <Link href="/shop?c=mala">Malas &amp; Bracelets</Link>
             <Link href="/shop?c=course_kit">Course Kits</Link>
             <Link href="/account">Orders &amp; account</Link>
             <Link href="/shipping">Shipping</Link>

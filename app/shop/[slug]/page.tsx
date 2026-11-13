@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { getLang, pick, t } from "@/lib/i18n";
 import { getProduct } from "@/lib/data";
 import { AddToCart } from "@/components/AddToCart";
-import { Glance, Photo, Tbc } from "@/components/ui";
+import { Glance, Photo, Prose, Tbc } from "@/components/ui";
+import { categoryLabel } from "@/lib/format";
 
 export const revalidate = 60;
 type Props = { params: Promise<{ slug: string }> };
@@ -51,11 +52,10 @@ export default async function ProductPage({ params }: Props) {
           <div className="stack-lg">
             <div className="stack" style={{ gap: 8 }}>
               <div className="tags">
-                <span className="tag">{isKit ? "Course Kit" : "Rudraksha"}</span>
+                <span className="tag">{categoryLabel(p.category)}</span>
               </div>
               <h1 style={{ fontSize: "clamp(1.8rem,5vw,2.6rem)" }}>{pick(p.title_en, p.title_hi, lang)}</h1>
             </div>
-            {p.description && <p className="lede">{p.description}</p>}
             {isKit && course && (
               <p className="notice">
                 This kit is a separate purchase. Buying it does not enrol you in {course.title_en}. <Link href={`/courses/${course.slug}`}>Register for the course</Link> on its own page.
@@ -73,6 +73,7 @@ export default async function ProductPage({ params }: Props) {
                 </button>
               </div>
             )}
+            <Prose text={p.description} />
             <Glance
               rows={
                 isKit
@@ -106,7 +107,7 @@ export default async function ProductPage({ params }: Props) {
               {!isKit && (
                 <details>
                   <summary>A note on claims</summary>
-                  <p>We describe rudraksha by verified physical details only. We do not promise health, wealth, protection or spiritual results.</p>
+                  <p>Traditional associations are shared as devotional context. Our products are companions to sincere practice and do not guarantee health, financial or relationship outcomes.</p>
                 </details>
               )}
             </div>

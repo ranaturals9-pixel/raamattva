@@ -5,8 +5,8 @@ import { EnquiryForm } from "./EnquiryForm";
 
 export const metadata: Metadata = { title: "Contact", description: "Contact Raamattva Vidya Peeth about Gurukul admissions, courses, sessions or shop orders." };
 
-export default async function Contact({ searchParams }: { searchParams: Promise<{ topic?: string; order?: string }> }) {
-  const [{ topic, order }, content] = await Promise.all([searchParams, getSiteContent()]);
+export default async function Contact({ searchParams }: { searchParams: Promise<{ topic?: string; order?: string; course?: string }> }) {
+  const [{ topic, order, course }, content] = await Promise.all([searchParams, getSiteContent()]);
   const v = (k: string) => content[k]?.en || null;
   const link = (k: string) => {
     const url = v(k);
@@ -50,7 +50,7 @@ export default async function Contact({ searchParams }: { searchParams: Promise<
               </div>
             )}
           </div>
-          <EnquiryForm topic={topic} order={order} />
+          <EnquiryForm topic={topic} order={order} message={course ? `I would like to know about ${course.slice(0, 80)}: the next batch, dates and fee.` : undefined} />
         </div>
       </section>
     </>

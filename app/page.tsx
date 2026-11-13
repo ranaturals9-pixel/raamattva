@@ -59,7 +59,7 @@ export default async function Home() {
               <div className="tags">
                 <span className="tag adults">Adults</span>
               </div>
-              <p className="muted">Structured courses in Hanuman Saadhna, Ram Saadhna and meditation, for beginners and those deepening an existing practice.</p>
+              <p className="muted">Structured courses in Hanuman Saadhna, Raam Saadhna, Swarayoga and meditation, for beginners and those deepening an existing practice.</p>
               <Link className="more" href="/courses">
                 Explore courses →
               </Link>

@@ -8,7 +8,7 @@ import { PageHead } from "@/components/ui";
 export const revalidate = 60;
 export const metadata: Metadata = {
   title: "Courses",
-  description: "Adult courses at Raamattva Vidya Peeth: Hanuman Saadhna, Ram Saadhna and Essentials of Meditation.",
+  description: "Adult courses at Raamattva Vidya Peeth: Hanuman Saadhna, Raam Saadhna, Swarayoga and Essentials of Meditation.",
 };
 
 export default async function Courses() {

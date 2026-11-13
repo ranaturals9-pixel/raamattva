@@ -81,6 +81,10 @@ export function normalisePhone(raw: string | null | undefined): string | null {
   return null;
 }
 
+export function categoryLabel(c: string): string {
+  return c === "rudraksha" ? "Rudraksha" : c === "mala" ? "Malas & Bracelets" : "Course Kit";
+}
+
 export function storageUrl(path: string | null | undefined): string | null {
   if (!path) return null;
   return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/public-media/${path}`;

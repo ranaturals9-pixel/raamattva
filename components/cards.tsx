@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { pick, t, type Lang } from "@/lib/i18n-shared";
-import { duration, inr, istDate, istDay, istTime } from "@/lib/format";
+import { categoryLabel, duration, inr, istDate, istDay, istTime } from "@/lib/format";
 import { registrationState } from "@/lib/registration-state";
 import { RegisterButton } from "./RegisterButton";
 import { Photo, Tbc } from "./ui";
@@ -48,7 +48,7 @@ export function SessionCard({ s, lang }: { s: SessionWithSeats; lang: Lang }) {
   if (s.format !== "online" && (s.city || s.venue)) summary.push(["Venue", [s.venue, s.city].filter(Boolean).join(", ")]);
   const day = s.starts_at ? istDay(s.starts_at) : null;
   return (
-    <article className="card session" data-fee={s.is_free ? "free" : s.is_free === false ? "paid" : "tbc"} data-format={s.format} data-audience={s.audience}>
+    <article id={s.slug} className="card session" data-fee={s.is_free ? "free" : s.is_free === false ? "paid" : "tbc"} data-format={s.format} data-audience={s.audience}>
       <div className="date">
         {day ? (
           <>
@@ -57,7 +57,7 @@ export function SessionCard({ s, lang }: { s: SessionWithSeats; lang: Lang }) {
           </>
         ) : s.recurrence_text ? (
           <>
-            <b>Weekly</b>
+            <b>{s.kind === "recurring" ? "Weekly" : "Book"}</b>
             <span>{s.recurrence_text}</span>
           </>
         ) : (
@@ -123,7 +123,7 @@ export function ProductCard({ p, lang }: { p: ProductCardData; lang: Lang }) {
     <Link className="product-card" href={`/shop/${p.slug}`} data-cat={p.category}>
       <Photo path={p.image?.storage_path} alt={p.image?.alt_text ?? p.title_en} placeholder={p.title_en} shape="sq" />
       <div className="tags">
-        <span className="tag">{p.category === "rudraksha" ? "Rudraksha" : "Course Kit"}</span>
+        <span className="tag">{categoryLabel(p.category)}</span>
         {p.from_paise !== null && !p.in_stock && <span className="tag">{t("out_of_stock", lang)}</span>}
       </div>
       <h3 className="pname">{pick(p.title_en, p.title_hi, lang)}</h3>

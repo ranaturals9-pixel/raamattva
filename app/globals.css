@@ -313,3 +313,4 @@ fieldset.card legend{padding:0 6px}
 @media (max-width:420px){.brand b{font-size:.95rem}}
 .admin .grid{align-items:start}
 .field>select,.field>input{align-self:start}
+.glance .tbc{white-space:normal}

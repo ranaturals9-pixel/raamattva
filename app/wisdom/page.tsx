@@ -7,10 +7,10 @@ import { PageHead } from "@/components/ui";
 export const revalidate = 60;
 export const metadata: Metadata = {
   title: "Wisdom and Resources",
-  description: "Articles, reflections, videos and resources on Hanuman Saadhna, Ram Saadhna, meditation and spiritual living.",
+  description: "Articles, reflections, videos and resources on Hanuman Saadhna, Raam Saadhna, meditation and spiritual living.",
 };
 
-const TOPICS = { hanuman: "Hanuman Saadhna", ram: "Ram Saadhna", meditation: "Meditation", living: "Spiritual Living" } as const;
+const TOPICS = { hanuman: "Hanuman Saadhna", ram: "Raam Saadhna", meditation: "Meditation", living: "Spiritual Living" } as const;
 const TYPES = { article: "Article", reflection: "Reflection", video: "Video", audio: "Audio", study_material: "Study material" } as const;
 
 export default async function Wisdom() {
@@ -20,7 +20,7 @@ export default async function Wisdom() {
       <PageHead
         eyebrow="ज्ञान · Wisdom & Resources"
         title="Wisdom and resources"
-        lede="Articles, reflections, videos and introductory resources on Hanuman Saadhna, Ram Saadhna, meditation and spiritual living. Some are open to all, and some are for enrolled students."
+        lede="Articles, reflections, videos and introductory resources on Hanuman Saadhna, Raam Saadhna, meditation and spiritual living. Some are open to all, and some are for enrolled students."
         crumbs={[{ label: "Wisdom" }]}
       />
       {verses.length > 0 && (

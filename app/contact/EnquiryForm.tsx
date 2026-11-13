@@ -11,7 +11,7 @@ const TOPICS = [
   ["other", "Something else"],
 ] as const;
 
-export function EnquiryForm({ topic, order }: { topic?: string; order?: string }) {
+export function EnquiryForm({ topic, order, message }: { topic?: string; order?: string; message?: string }) {
   const [state, setState] = useState<{ kind: "idle" | "sent" | "error"; msg?: string }>({ kind: "idle" });
   const [busy, setBusy] = useState(false);
   const [chosen, setChosen] = useState(TOPICS.some(([v]) => v === topic) ? topic! : "gurukul");
@@ -72,7 +72,7 @@ export function EnquiryForm({ topic, order }: { topic?: string; order?: string }
       )}
       <div className="field">
         <label htmlFor="cMsg">Message</label>
-        <textarea id="cMsg" name="message" rows={5} required />
+        <textarea id="cMsg" name="message" rows={5} required defaultValue={message} />
       </div>
       {state.kind === "error" && <p className="notice">{state.msg}</p>}
       <button className="btn primary" type="submit" disabled={busy}>

@@ -80,7 +80,7 @@ export interface Session {
 export interface Product {
   id: string;
   slug: string;
-  category: "rudraksha" | "course_kit";
+  category: "rudraksha" | "mala" | "course_kit";
   title_en: string;
   title_hi: string | null;
   description: string | null;
