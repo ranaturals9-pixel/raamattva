@@ -19,9 +19,6 @@ export default async function ComingSoon() {
         <p className="eyebrow">Founded by Swami Ananta Giri</p>
         <h1>Our website is coming soon</h1>
         <p className="tagline">{tagline}</p>
-        <p className="lede">
-          A Gurukul for children and a centre for spiritual learning, with courses in Hanuman Saadhna, Raam Saadhna, Swarayoga and meditation.
-        </p>
         {wa && (
           <p className="soon-contact">
             For courses and enquiries, message us on WhatsApp:{" "}
