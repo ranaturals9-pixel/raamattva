@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import "./globals.css";
 import { getLang } from "@/lib/i18n";
 import { getUser } from "@/lib/auth";
@@ -24,7 +25,9 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { themeColor: "#FBF7EE", width: "device-width", initialScale: 1, viewportFit: "cover" };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const [lang, user, content] = await Promise.all([getLang(), getUser(), getSiteContent()]);
+  const [lang, user, content, h] = await Promise.all([getLang(), getUser(), getSiteContent(), headers()]);
+  // The coming-soon page stands on its own, without the site header and footer.
+  const bare = h.get("x-rvp-page") === "coming-soon";
   return (
     <html lang={lang}>
       <head>
@@ -37,6 +40,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
       </head>
       <body>
+        {bare ? (
+          children
+        ) : (
+          <>
         <a className="skip" href="#main">
           Skip to content
         </a>
@@ -46,6 +53,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Footer content={content} />
           <CartDrawer />
         </CartProvider>
+          </>
+        )}
       </body>
     </html>
   );

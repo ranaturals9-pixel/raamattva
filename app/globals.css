@@ -318,3 +318,9 @@ fieldset.card legend{padding:0 6px}
 .logo-full{display:block;width:180px;height:auto}
 @media (max-width:420px){.brand .logo-mark{width:34px}}
 .iconbtn{white-space:nowrap}
+.soon{min-height:100dvh;display:grid;place-items:center;padding-block:48px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px));background:radial-gradient(ellipse at top,var(--tint),var(--bg) 60%)}
+.soon-inner{max-width:620px;display:grid;gap:16px;justify-items:center;text-align:center}
+.soon-logo{width:min(240px,60vw);height:auto;margin-bottom:8px}
+.soon .lede{margin-inline:auto}
+.soon-contact{font-size:1rem;color:var(--muted)}
+.soon-contact a{font-weight:600;white-space:nowrap}
